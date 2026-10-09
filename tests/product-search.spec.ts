@@ -18,5 +18,6 @@ test.describe('Product Search', () => {
     });
 
     await expect(matchingProducts.first()).toBeVisible();
+
   });
 });

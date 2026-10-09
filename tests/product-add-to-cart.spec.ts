@@ -15,10 +15,9 @@ test.describe('Product Add to Cart', () => {
   await productPage.addFirstProductToCart();
   await productPage.clickContinueShopping();
 
-   await headerPage.clickCartLink();
-   expect(await cartPage.getFirstProductTitle()).toBe(CartData.product.name); 
-   expect(await cartPage.getFirstProductPrice()).toBe(CartData.product.price);
-   
+  await headerPage.clickCartLink();
+  expect(await cartPage.getFirstProductTitle()).toBe(CartData.product.name); 
+  expect(await cartPage.getFirstProductPrice()).toBe(CartData.product.price);
 
   })
 

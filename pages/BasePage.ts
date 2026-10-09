@@ -13,7 +13,5 @@ export class BasePage {
    await this.page.goto(`https://automationexercise.com/${path}`);
   }
   
-  async waitForPageLoad(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
-  }
+ 
 }
