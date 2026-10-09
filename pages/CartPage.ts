@@ -25,13 +25,13 @@ export class CartPage extends BasePage {
        }
       return '';
     }
-    
-    async getFirstProductPrice(): Promise<string> {
-    const price = await this.cartRows.first()
-        .locator('.cart_price')
-        .textContent();
 
-    return price?.trim() ?? '';
+    async getFirstProductPrice(): Promise<string> {
+        const price = await this.cartRows.first()
+            .locator('.cart_price')
+            .textContent();
+
+        return price?.trim() ?? '';
 }
 
 

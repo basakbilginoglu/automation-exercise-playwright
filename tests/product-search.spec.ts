@@ -11,13 +11,13 @@ test.describe('Product Search', () => {
   
   await productPage.searchProduct('Tshirt');
 
-    await expect(page.getByText('Searched Products')).toBeVisible();
+  await expect(page.getByText('Searched Products')).toBeVisible();
 
-    const matchingProducts = page.locator('.productinfo p', {
-      hasText: /tshirt/i,
-    });
+  const matchingProducts = page.locator('.productinfo p', {
+    hasText: /tshirt/i,
+});
 
-    await expect(matchingProducts.first()).toBeVisible();
+  await expect(matchingProducts.first()).toBeVisible();
 
   });
 });
