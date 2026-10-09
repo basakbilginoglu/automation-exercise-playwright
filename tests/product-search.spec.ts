@@ -1,14 +1,15 @@
 
 import { test, expect } from '@playwright/test';
+import { ProductPage } from '../pages/ProductPage';
+
 
 test.describe('Product Search', () => {
-  test('should return relevant products when searching for a keyword', async ({ page }) => {
-    await page.goto('https://automationexercise.com/');
+  test('should display relevant search results', async ({ page }) => {
 
-    await page.goto('https://automationexercise.com/products');
-
-    await page.locator('#search_product').fill('Tshirt');
-    await page.locator('#submit_search').click();
+  const productPage = new ProductPage(page);
+  await productPage.navigateTo('products');
+  
+  await productPage.searchProduct('Tshirt');
 
     await expect(page.getByText('Searched Products')).toBeVisible();
 
