@@ -12,7 +12,7 @@ export class HeaderPage extends BasePage {
         this.homeLink = page.locator('a:has-text("Home")');
         this.productsLink = page.locator('a:has-text("Products")');
         this.signUpLoginLink = page.locator('a:has-text("Signup / Login")');
-        this.cartLink = page.locator('a:has-text("Cart")');
+        this.cartLink = page.locator('header a[href="/view_cart"]');
     }
     async clickHomeLink(): Promise<void> {
         await this.homeLink.click();
