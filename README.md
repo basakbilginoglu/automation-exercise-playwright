@@ -41,7 +41,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/basakbilginoglu/automation-exercise-playwright.git
-cd automation-exercise-playwright_
+cd automation-exercise-playwright
 ```
 
 ```bash
