@@ -1,21 +1,19 @@
-
-
-
-
 # Automation Exercise – Playwright Tests
 
 ## Overview
 
 This project contains UI test automation for [Automation Exercise](https://automationexercise.com/) using Playwright and TypeScript.
 
-The goal is to validate important user flows, including product search, cart operations, and login validation.
+The goal is to validate important user flows, including product search, cart operations, and login validation. The project also includes API testing artifacts created with Postman.
 
 ## Tech Stack
 
-- Playwright
 - TypeScript
+- Playwright
 - Node.js
+- Postman
 - GitHub Actions
+- Git
 
 ## Project Structure
 
@@ -25,35 +23,64 @@ automation-exercise-playwright/
 │   └── workflows/
 │       └── playwright.yml
 ├── api/
+│   ├── collections/
+│   ├── environments/
+│   └── evidence/
+├── evidence/
 ├── pages/
 ├── tests/
 ├── test-data/
 ├── playwright.config.ts
+├── tsconfig.json
 ├── package.json
 ├── package-lock.json
-├── .gitignore
 └── README.md
 ```
 
+## Test Coverage
+
+### UI Tests
+
+- **Product Search:** Verifies that searching for a product displays relevant search results.
+- **Add to Cart:** Checks that a product can be added to the shopping cart and that the relevant product information is displayed.
+- **Negative Login:** Verifies login validation with invalid credentials.
+
+### API Testing
+
+Postman collection and environment files are maintained in the `api/` directory. API testing evidence is stored separately under `api/evidence/`.
+
+## Page Object Model
+
+The project uses the Page Object Model (POM) to separate page-specific interactions from test scenarios.
+
+- `pages/` contains page object classes.
+- `tests/` contains Playwright test scenarios.
+- `test-data/` contains test data.
+- `evidence/` contains project-level testing evidence.
+
+## Prerequisites
+
+- Node.js
+- npm
+- Git
+
 ## Installation
 
-Clone the repository:
+Clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/basakbilginoglu/automation-exercise-playwright.git
-cd automation-exercise-playwright
-```
-
-```bash
+git clone <repository-url>
+cd <repository-directory>
+npm ci
 npx playwright install
 ```
 
 ## Running Tests
 
-Run all tests:
+Run all Playwright tests:
 
 ```bash
-npx playwright test
+npm test
 ```
 
 Run tests in a specific browser:
@@ -64,57 +91,71 @@ npx playwright test --project=firefox
 npx playwright test --project=webkit
 ```
 
-Open the HTML report:
+## TypeScript Type Checking
+
+The project uses `tsconfig.json` to configure TypeScript compiler options.
+
+Run the type check without generating JavaScript output:
+
+```bash
+npm run typecheck
+```
+
+This executes `tsc --noEmit` to check for TypeScript errors without generating JavaScript files.
+
+## Test Reports and Failure Evidence
+
+Playwright is configured to generate an HTML report and retain failure-related evidence.
+
+- **HTML report:** `playwright-report/`
+- **Test results:** `test-results/`
+- **Screenshots:** Captured for failed tests.
+- **Traces:** Retained for failed tests.
+- **Videos:** Retained for failed tests when available.
+
+Open the HTML report locally:
 
 ```bash
 npx playwright show-report
 ```
 
-## Test Scope
+## Continuous Integration (CI)
 
-### 1. Product Search
+GitHub Actions is configured in `.github/workflows/playwright.yml`.
 
-- Search for a product using the search field.
-- Check that the results contain relevant product information.
+The workflow runs on pushes to `main` or `master`, pull requests targeting these branches, and manual workflow dispatches.
 
-### 2. Cart
+### CI Pipeline
 
-- Add a product to the cart.
-- Verify the product name and price in the cart.
+1. Checks out the repository.
+2. Sets up Node.js.
+3. Installs dependencies using `npm ci`.
+4. Runs TypeScript type checking using `npm run typecheck`.
+5. Installs Playwright browsers.
+6. Executes the Playwright test suite.
+7. Uploads the HTML report and test results as workflow artifacts.
 
-### 3. Negative Login
+The workflow runs on Ubuntu. In CI, tests use a single worker and can be retried up to two times.
 
-- Attempt to log in using invalid credentials.
-- Verify that the expected error message is displayed.
+### CI Evidence
 
-## Design Decisions
+Two consecutive GitHub Actions runs completed successfully.
 
-- **Page Object Model (POM):** Page-specific interactions are organized into page classes to improve maintainability and reusability.
-- **Business-critical assertions:** The cart test checks the product name and price, which are important details in the shopping flow.
-- **Negative testing:** The login test verifies the application's response to invalid credentials.
-- **Cross-browser configuration:** Playwright is configured for Chromium, Firefox, and WebKit.
-- **CI integration:** GitHub Actions runs the test suite automatically on pushes and supports manual execution.
-- **Separation of concerns:** Tests, page objects, test data, and API-related files are organized separately.
+- **Run 1:** [View workflow run](https://github.com/basakbilginoglu/automation-exercise-playwright/actions/runs/39244011422/job/118031394973)
+- **Run 2:** [View workflow run](https://github.com/basakbilginoglu/automation-exercise-playwright/actions/runs/39244581895)
 
-## CI Evidence
+Each run provides execution details and test results. Available HTML reports and failure evidence can be accessed through the workflow artifacts.
 
-GitHub Actions is configured to run the Playwright test suite automatically on every push and can also be triggered manually using `workflow_dispatch`.
+## API Testing Evidence
 
-**Latest recorded successful run:** 3 tests passed in 18.7 seconds.
+The `api/` directory contains:
 
-**Workflow:** [Playwright Tests – GitHub Actions](https://github.com/basakbilginoglu/automation-exercise-playwright/actions/workflows/playwright.yml)
+- `collections/` – Postman collection files.
+- `environments/` – Postman environment files.
+- `evidence/` – API testing screenshots and supporting evidence.
 
-**Successful run:** https://github.com/basakbilginoglu/automation-exercise-playwright/actions/runs/37918998243/job/113782092279
+## Notes
 
-The successful run log reported:
-
-```text
-Running 3 tests using 1 worker
-3 passed (18.7s)
-```
-
-
-
-
-
-
+- The project tests a public demo website, so external availability and third-party behavior may affect test execution.
+- API testing artifacts and UI automation tests are maintained separately.
+- CI results represent the test scope and browser configurations executed in each workflow run.
