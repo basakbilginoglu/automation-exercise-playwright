@@ -4,11 +4,12 @@
 
 Seçtiğim senaryolar şunlardır:
 
-- Sepete ürün ekleme
-- Ürün detaylarını görüntüleme
-- Ürün miktarını değiştirme
+- Negative Login
+- Sepete Ürün Ekleme
+- Ürün arama
 
-Bu senaryoları, kullanıcı etkileşimlerine ve arayüz davranışlarına odaklandıkları için seçtim. Login ve Search gibi senaryoların bazı kontrolleri API seviyesinde daha verimli gerçekleştirilebilirken, seçtiğim senaryolar kullanıcı işlemlerinin ardından arayüzün doğru tepki verip vermediğini ve beklenen bilgilerin doğru görüntülenip görüntülenmediğini doğrulamamı sağlıyor.
+Bu senaryoları, kullanıcı etkileşimlerini ve arayüzün bu etkileşimlere verdiği tepkileri doğrulamak amacıyla seçtim. Negatif giriş senaryosunda, geçersiz bilgiler girildiğinde kullanıcının giriş yapamamasını ve uygun hata mesajının görüntülenmesini kontrol ediyorum. Sepete ürün ekleme senaryosunda, seçilen ürünün sepete doğru şekilde eklenmesini ve ürün bilgilerinin doğru görüntülenmesini doğruluyorum. Ürün arama senaryosunda ise arama sonucunda ilgili ürünlerin listelenmesini ve sonuçların beklenen ürünlerle eşleşmesini kontrol ediyorum.
+
 
 ## 2. Hangi kontrolleri UI yerine API seviyesinde yapmak daha doğru olurdu ve neden?
 
