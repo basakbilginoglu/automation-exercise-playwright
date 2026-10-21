@@ -9,7 +9,9 @@
     "test:webkit": "playwright test --project=webkit",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "typecheck:expected-failure": "tsc -p type-check-examples/tsconfig.json"
   },
   "keywords": [],
   "author": "",
