@@ -1,4 +1,4 @@
-import {Page,Locator} from '@playwright/test';
+import {Page,Locator,expect} from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class CartPage extends BasePage {
@@ -18,21 +18,40 @@ export class CartPage extends BasePage {
     async clickProceedToCheckout(): Promise<void> {
         await this.proceedToCheckoutButton.click();
     }
-    async getFirstProductTitle(): Promise<string> {
-       if (await this.getCartItemsCount() > 0) {
-        const title = await this.cartRows.first().locator('.cart_description h4 a').textContent();
-        return title ? title.trim() : '';
-       }
-      return '';
+
+
+    private getProductRow(productName: string): Locator {
+        return this.cartRows.filter({
+            has: this.page.locator('.cart_description h4 a', {
+                hasText: productName
+            })
+        });
     }
 
-    async getFirstProductPrice(): Promise<string> {
-        const price = await this.cartRows.first()
-            .locator('.cart_price')
-            .textContent();
+    
+    async getProductTitle(productName:string): Promise<string> {
+        const row = this.getProductRow(productName);
+        await expect(row).toHaveCount(1);
 
+        const title = await row.locator('.cart_description h4 a').textContent();
+        return title?.trim() ?? '';
+    }
+
+     async getProductPrice(productName:string): Promise<string> {
+        const row = this.getProductRow(productName);
+        await expect(row).toHaveCount(1);
+
+        const price = await row.locator('.cart_price').textContent();
         return price?.trim() ?? '';
-}
+    }
+
+     async getProductQuantity(productName:string): Promise<number> {
+        const row = this.getProductRow(productName);
+        await expect(row).toHaveCount(1);
+
+        const quantity = await row.locator('.cart_quantity button').textContent();
+        return Number(quantity?.trim());
+    }
 
 
 }   

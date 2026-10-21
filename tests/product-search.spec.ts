@@ -1,6 +1,7 @@
 
 import { test, expect } from '@playwright/test';
 import { ProductPage } from '../pages/ProductPage';
+import SearchData from '../test-data/search.json';
 
 
 test.describe('Product Search', () => {
@@ -9,7 +10,7 @@ test.describe('Product Search', () => {
   const productPage = new ProductPage(page);
   await productPage.navigateTo('products');
   
-  await productPage.searchProduct('Tshirt');
+  await productPage.searchProduct(SearchData.searchTerm);
 
   await expect(page.getByText('Searched Products')).toBeVisible();
 

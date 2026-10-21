@@ -12,12 +12,12 @@ test.describe('Product Add to Cart', () => {
   const productPage = new ProductPage(page);
   await productPage.navigateTo('products');
 
-  await productPage.addFirstProductToCart();
+  await productPage.addProductToCart(CartData.product.name);
   await productPage.clickContinueShopping();
 
   await headerPage.clickCartLink();
-  expect(await cartPage.getFirstProductTitle()).toBe(CartData.product.name); 
-  expect(await cartPage.getFirstProductPrice()).toBe(CartData.product.price);
+  expect(await cartPage.getProductTitle(CartData.product.name)).toBe(CartData.product.name);
+  expect(await cartPage.getProductPrice(CartData.product.name)).toBe(CartData.product.price);
 
   })
 
